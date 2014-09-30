@@ -1,0 +1,20 @@
+cinder.conf.erb:
+  target: /etc/cinder/cinder.conf
+  user: cinder
+  group: cinder
+  perms: 0644
+  config: {}
+
+admin-openrc.erb:
+  target: /root/admin-openrc.sh
+  user: root
+  group: root
+  perms: 0755
+  config: {}
+
+demo-openrc.erb:
+  target: /root/demo-openrc.sh
+  user: root
+  group: root
+  perms: 0755
+  config: {}

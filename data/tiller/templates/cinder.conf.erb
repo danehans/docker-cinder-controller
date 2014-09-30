@@ -7,7 +7,6 @@
 # Use durable queues in amqp. (boolean value)
 # Deprecated group/name - [DEFAULT]/rabbit_durable_queues
 #amqp_durable_queues=false
-amqp_durable_queues=False
 
 # Auto-delete queues in amqp. (boolean value)
 #amqp_auto_delete=false
@@ -78,34 +77,31 @@ amqp_durable_queues=False
 # The RabbitMQ broker address where a single node is used.
 # (string value)
 #rabbit_host=localhost
-rabbit_host=10.10.10.200
+rabbit_host=<%= env_rabbit_host %>
 
 # The RabbitMQ broker port where a single node is used.
 # (integer value)
 #rabbit_port=5672
-rabbit_port=5672
 
 # RabbitMQ HA cluster host:port pairs. (list value)
 #rabbit_hosts=$rabbit_host:$rabbit_port
-rabbit_hosts=10.10.10.200:5672
 
 # Connect over SSL for RabbitMQ. (boolean value)
 #rabbit_use_ssl=false
 
 # The RabbitMQ userid. (string value)
 #rabbit_userid=guest
-rabbit_userid=guest
+rabbit_userid=<%= env_rabbit_user %>
 
 # The RabbitMQ password. (string value)
 #rabbit_password=guest
-rabbit_password=guest
+rabbit_password=<%= env_rabbit_password %>
 
 # the RabbitMQ login method (string value)
 #rabbit_login_method=AMQPLAIN
 
 # The RabbitMQ virtual host. (string value)
 #rabbit_virtual_host=/
-rabbit_virtual_host=/
 
 # How frequently to retry connecting with RabbitMQ. (integer
 # value)
@@ -123,7 +119,6 @@ rabbit_virtual_host=/
 # this option, you must wipe the RabbitMQ database. (boolean
 # value)
 #rabbit_ha_queues=false
-rabbit_ha_queues=False
 
 # If passed, use a fake RabbitMQ provider. (boolean value)
 #fake_rabbit=false
@@ -196,14 +191,11 @@ notification_driver=cinder.openstack.common.notifier.rpc_notifier
 # The messaging driver to use, defaults to rabbit. Other
 # drivers include qpid and zmq. (string value)
 #rpc_backend=rabbit
-rpc_backend=cinder.openstack.common.rpc.impl_kombu
 
 # The default exchange under which topics are scoped. May be
 # overridden by an exchange name specified in the
 # transport_url option. (string value)
 #control_exchange=openstack
-control_exchange=openstack
-
 
 #
 # Options defined in cinder.exception
@@ -277,7 +269,6 @@ control_exchange=openstack
 
 # IP address for OpenStack Volume API to listen (string value)
 #osapi_volume_listen=0.0.0.0
-osapi_volume_listen=0.0.0.0
 
 # port for os volume api to listen (integer value)
 #osapi_volume_listen_port=8776
@@ -402,7 +393,6 @@ osapi_volume_listen=0.0.0.0
 
 # The URL of the Swift endpoint (string value)
 #backup_swift_url=http://localhost:8080/v1/AUTH_
-backup_swift_url=http://10.10.10.200:8080/v1/AUTH_
 
 # Swift authentication mechanism (string value)
 #backup_swift_auth=per_user
@@ -415,21 +405,17 @@ backup_swift_url=http://10.10.10.200:8080/v1/AUTH_
 
 # The default Swift container to use (string value)
 #backup_swift_container=volumebackups
-backup_swift_container=volumes_backup
 
 # The size in bytes of Swift backup objects (integer value)
 #backup_swift_object_size=52428800
-backup_swift_object_size=52428800
 
 # The number of retries to make for Swift operations (integer
 # value)
 #backup_swift_retry_attempts=3
-backup_swift_retry_attempts=3
 
 # The backoff time in seconds between Swift retries (integer
 # value)
 #backup_swift_retry_backoff=2
-backup_swift_retry_backoff=2
 
 # Compression algorithm (None to disable) (string value)
 #backup_compression_algorithm=zlib
@@ -457,7 +443,6 @@ backup_swift_retry_backoff=2
 # Driver to use for backups. (string value)
 # Deprecated group/name - [DEFAULT]/backup_service
 #backup_driver=cinder.backup.drivers.swift
-backup_driver=cinder.backup.drivers.swift
 
 
 #
@@ -467,7 +452,6 @@ backup_driver=cinder.backup.drivers.swift
 # File name for the paste.deploy config for cinder-api (string
 # value)
 #api_paste_config=api-paste.ini
-api_paste_config=/etc/cinder/api-paste.ini
 
 # Top-level directory for maintaining cinder's state (string
 # value)
@@ -479,7 +463,7 @@ api_paste_config=/etc/cinder/api-paste.ini
 
 # default glance hostname or ip (string value)
 #glance_host=$my_ip
-glance_host=10.10.10.100
+glance_host=<%= env_glance_api_host %>
 
 # default glance port (integer value)
 #glance_port=9292
@@ -520,7 +504,6 @@ glance_host=10.10.10.100
 
 # the topic volume backup nodes listen on (string value)
 #backup_topic=cinder-backup
-backup_topic=cinder-backup
 
 # Deploy v1 of the Cinder API. (boolean value)
 #enable_v1_api=true
@@ -545,7 +528,6 @@ backup_topic=cinder-backup
 # full class name for the Manager for volume backup (string
 # value)
 #backup_manager=cinder.backup.manager.BackupManager
-backup_manager=cinder.backup.manager.BackupManager
 
 # full class name for the Manager for scheduler (string value)
 #scheduler_manager=cinder.scheduler.manager.SchedulerManager
@@ -592,7 +574,6 @@ backup_manager=cinder.backup.manager.BackupManager
 # The full class name of the volume backup API class (string
 # value)
 #backup_api_class=cinder.backup.api.API
-backup_api_class=cinder.backup.api.API
 
 # The strategy to use for auth. Supports noauth, keystone, and
 # deprecated. (string value)
@@ -753,12 +734,11 @@ backup_name_template=backup-%s
 # Print debugging output (set logging level to DEBUG instead
 # of default WARNING level). (boolean value)
 #debug=false
-debug=False
 
 # Print more verbose output (set logging level to INFO instead
 # of default WARNING level). (boolean value)
 #verbose=false
-verbose=True
+verbose=true
 
 # Log output to standard error (boolean value)
 #use_stderr=true
@@ -830,7 +810,6 @@ log_dir=/var/log/cinder
 # during I, and then will be changed in J to honor RFC5424
 # (boolean value)
 #use_syslog=false
-use_syslog=False
 
 # (Optional) Use syslog rfc5424 format for logging. If
 # enabled, will add APP-NAME (RFC5424) before the MSG part of
@@ -987,7 +966,6 @@ use_syslog=False
 # The IP address that the iSCSI daemon is listening on (string
 # value)
 #iscsi_ip_address=$my_ip
-iscsi_ip_address=10.10.10.200
 
 # The port that the iSCSI daemon is listening on (integer
 # value)
@@ -1023,7 +1001,6 @@ volume_backend_name=DEFAULT
 
 # iscsi target user-land tool to use (string value)
 #iscsi_helper=tgtadm
-iscsi_helper=lioadm
 
 # Volume configuration file storage directory (string value)
 #volumes_dir=$state_path/volumes
@@ -1288,7 +1265,6 @@ iscsi_helper=lioadm
 # Name for the VG that will contain exported volumes (string
 # value)
 #volume_group=cinder-volumes
-volume_group=cinder-volumes
 
 # If set, create lvms with multiple mirrors. Note that this
 # requires lvm_mirrors + 2 pvs with available space (integer
@@ -1931,13 +1907,12 @@ volume_group=cinder-volumes
 # database (string value)
 # Deprecated group/name - [DEFAULT]/sql_connection
 #connection=sqlite:///$state_path/$sqlite_db
-connection=mysql://cinder:cisco123@10.10.10.200/cinder
+connection=mysql://cinder:<%= env_db_password %>@<%= env_db_host %>/cinder
 
 # timeout before idle sql connections are reaped (integer
 # value)
 # Deprecated group/name - [DEFAULT]/sql_idle_timeout
 #idle_timeout=3600
-idle_timeout=3600
 
 # Minimum number of SQL connections to keep open in a pool
 # (integer value)
@@ -2037,23 +2012,20 @@ idle_timeout=3600
 
 # Host providing the admin Identity API endpoint. Deprecated,
 # use identity_uri. (string value)
-#auth_host=127.0.0.1
 
 # Port of the admin Identity API endpoint. Deprecated, use
 # identity_uri. (integer value)
-#auth_port=35357
 
 # Protocol of the admin Identity API endpoint (http or https).
 # Deprecated, use identity_uri. (string value)
-auth_protocol=http
 
 # Complete public Identity API endpoint (string value)
-#auth_uri=http://10.10.10.200:5000
+auth_uri=http://<%= env_keystone_host %>:<%= env_keystone_public_host_port %>
 
 # Complete admin Identity API endpoint. This should specify
 # the unversioned root endpoint e.g. https://localhost:35357/
 # (string value)
-identity_uri=http://10.10.10.200:35357/
+identity_uri=http://<%= env_keystone_host %>:<%= env_keystone_admin_host_port %>/
 
 # API version of the admin Identity API endpoint (string
 # value)
@@ -2084,11 +2056,11 @@ identity_uri=http://10.10.10.200:35357/
 admin_user=cinder
 
 # Keystone account password (string value)
-admin_password=cisco123
+admin_password=<%= env_service_password %>
 
 # Keystone service account tenant name to validate user tokens
 # (string value)
-admin_tenant_name=services
+admin_tenant_name=<%= env_service_tenant %>
 
 # Env key for the swift cache (string value)
 #cache=<None>
@@ -2208,5 +2180,3 @@ admin_tenant_name=services
 # Private key file to use when starting the server securely
 # (string value)
 #key_file=<None>
-
-
